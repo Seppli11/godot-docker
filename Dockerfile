@@ -12,7 +12,8 @@ RUN apt-get update \
     && rm packages-microsoft-prod.deb \
     && apt-get update \
     && apt-get install -y unzip dotnet-sdk-7.0 fontconfig \
-    && wget \
+    && rm -rf /var/lib/apt/lists/* \
+RUN wget \
 "https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}/Godot_v${GODOT_VERSION}_mono_linux_x86_64.zip" \
 "https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}/Godot_v${GODOT_VERSION}_mono_export_templates.tpz" \
     && unzip Godot_v*_mono_linux_x86_64.zip \
@@ -22,8 +23,6 @@ RUN apt-get update \
     && mkdir ~/.godot \
     && unzip -d ~/.godot Godot_v*_mono_export_templates.tpz \
     && rm -f *.zip *.tpz \
-    && apt-get purge -y --auto-remove wget unzip \
-    && rm -rf /var/lib/apt/lists/*
 
 ENV DOTNET_CLI_TELEMETRY_OPTOUT=1
 
