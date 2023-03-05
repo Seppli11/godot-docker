@@ -4,7 +4,7 @@ pipeline {
         editableChoice(
             name: "GodotVersion", 
             description: "The version of Godot to build"
-            choice: []
+            choices: []
         )
     }
     environment {
