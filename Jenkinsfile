@@ -3,7 +3,7 @@ pipeline {
     parameters {
         editableChoice(
             name: "GodotVersion", 
-            description: "The version of Godot to build"
+            description: "The version of Godot to build",
             choices: []
         )
     }
