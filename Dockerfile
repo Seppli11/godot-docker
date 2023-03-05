@@ -31,4 +31,6 @@ USER jenkins
 WORKDIR /home/jenkins
 
 RUN dotnet tool install --global dotnet-reportgenerator-globaltool \
-    && dotnet tool install --global coverlet.console
+    && dotnet tool install --global dotnet-coverage
+
+ENV PATH="${PATH}:/home/jenkins/.dotnet/tools"
