@@ -13,7 +13,7 @@ pipeline {
             steps {
                 echo "Building Godot ${params.GodotVersion}"
                 script {
-                    godotImage = docker.build("Seppli11/godot:${params.GodotVersion}", "--build-arg GODOT_VERSION=${params.GodotVersion} .")
+                    godotImage = docker.build("seppli11/godot:${params.GodotVersion}", "--build-arg GODOT_VERSION=${params.GodotVersion} .")
                 }
             }
         }
