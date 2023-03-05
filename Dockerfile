@@ -6,7 +6,7 @@ ARG GODOT_VERSION=4.0-stable
 LABEL org.opencontainers.image.source=https://github.com/Seppli11/godot-docker
 
 RUN apt-get update \
-    && apt-get install -y wget libxrender1 libfontconfig libxext6 libc6 libxml2\
+    && apt-get install -y wget libxrender1 libfontconfig libxext6 libc6 libxml2 default-jre\
     && wget https://packages.microsoft.com/config/debian/11/packages-microsoft-prod.deb -O packages-microsoft-prod.deb\
     && dpkg -i packages-microsoft-prod.deb \
     && rm packages-microsoft-prod.deb \
