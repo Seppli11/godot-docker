@@ -24,3 +24,7 @@ RUN apt-get update \
     && rm -f *.zip *.tpz \
     && apt-get purge -y --auto-remove wget unzip \
     && rm -rf /var/lib/apt/lists/*
+
+RUN useradd --system --create-home --home-dir /home/jenkins --shell /bin/bash --gid root --groups sudo --uid 1000 jenkins
+USER jenkins
+WORKDIR /home/jenkins
