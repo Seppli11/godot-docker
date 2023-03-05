@@ -4,7 +4,7 @@ pipeline {
         string(name: "GodotVersion", description: "The version of Godot to build")
     }
     environment {
-        registry = "ghcr.io/Seppli11"
+        registry = "https://ghcr.io/Seppli11"
         registryCredential = "github-seppli11-package-token"
     }
 
