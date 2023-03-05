@@ -6,7 +6,7 @@ ARG GODOT_VERSION=4.0-stable
 LABEL org.opencontainers.image.source=https://github.com/Seppli11/godot-docker
 
 RUN apt-get update \
-    && apt-get install -y wget \
+    && apt-get install -y wget libxrender1 libfontconfig libxext6 libc6 libxml2\
     && wget https://packages.microsoft.com/config/debian/11/packages-microsoft-prod.deb -O packages-microsoft-prod.deb\
     && dpkg -i packages-microsoft-prod.deb \
     && rm packages-microsoft-prod.deb \
@@ -25,6 +25,10 @@ RUN apt-get update \
     && apt-get purge -y --auto-remove wget unzip \
     && rm -rf /var/lib/apt/lists/*
 
+
 RUN useradd --system --create-home --home-dir /home/jenkins --shell /bin/bash --gid root --groups sudo --uid 1000 jenkins
 USER jenkins
 WORKDIR /home/jenkins
+
+RUN dotnet tool install --global dotnet-reportgenerator-globaltool \
+    && dotnet tool install --global coverlet.console
