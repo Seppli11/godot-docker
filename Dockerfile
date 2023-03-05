@@ -11,7 +11,7 @@ RUN apt-get update \
     && dpkg -i packages-microsoft-prod.deb \
     && rm packages-microsoft-prod.deb \
     && apt-get update \
-    && apt-get install -y unzip dotnet-sdk-7.0 \
+    && apt-get install -y unzip dotnet-sdk-7.0 fontconfig \
     && wget \
 "https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}/Godot_v${GODOT_VERSION}_mono_linux_x86_64.zip" \
 "https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}/Godot_v${GODOT_VERSION}_mono_export_templates.tpz" \
