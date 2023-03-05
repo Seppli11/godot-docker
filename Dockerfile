@@ -25,12 +25,14 @@ RUN apt-get update \
     && apt-get purge -y --auto-remove wget unzip \
     && rm -rf /var/lib/apt/lists/*
 
+ENV DOTNET_CLI_TELEMETRY_OPTOUT=1
 
 RUN useradd --system --create-home --home-dir /home/jenkins --shell /bin/bash --gid root --groups sudo --uid 1000 jenkins
 USER jenkins
 WORKDIR /home/jenkins
 
 RUN dotnet tool install --global dotnet-reportgenerator-globaltool \
-    && dotnet tool install --global dotnet-coverage
+    && dotnet tool install --global dotnet-coverage \
+    && dotnet tool install --global dotnet-sonarscanner
 
 ENV PATH="${PATH}:/home/jenkins/.dotnet/tools"
