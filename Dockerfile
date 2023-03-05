@@ -1,19 +1,15 @@
-FROM debian:jessie-slim
+FROM alpine:3.17.2
 
-MAINTAINER Mattias Cibien <mattias@mattiascibien.net>
+MAINTAINER Sebastian Zumbrunn <sebastian.zumbrunn@pm.me>
 
-ARG GODOT_VERSION=3.0.6
-ARG GODOT_VARIANT=stable
+ARG GODOT_VERSION=4.0-stable
 
-RUN apt-get update \
-    && apt-get install -y wget unzip \
+RUN apk add dotnet7-sdk \
     && wget \
-"http://download.tuxfamily.org/godotengine/${GODOT_VERSION}/Godot_v${GODOT_VERSION}-${GODOT_VARIANT}_linux_headless.64.zip" \
-"http://downloads.tuxfamily.org/godotengine/${GODOT_VERSION}/Godot_v${GODOT_VERSION}-${GODOT_VARIANT}_export_templates.tpz" \
-    && unzip Godot_v*_linux_headless.64.zip \
-    && mv Godot_v*_linux_headless.64 /bin/godot \
+"https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}/Godot_v${GODOT_VERSION}_mono_linux_x86_64.zip" \
+"https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}/Godot_v${GODOT_VERSION}_mono_export_templates.tpz" \
+    && unzip Godot_v*_mono_linux_x86_64.zip \
+    && mv Godot_v*_linux_x86_64 /bin/godot \
     && mkdir ~/.godot \
-    && unzip -d ~/.godot Godot_v*_export_templates.tpz \
+    && unzip -d ~/.godot Godot_v*_mono_export_templates.tpz \
     && rm -f *.zip *.tpz \
-    && apt-get purge -y --auto-remove wget unzip \
-    && rm -rf /var/lib/apt/lists/*
