@@ -4,7 +4,7 @@ pipeline {
         string(name: "GodotVersion", description: "The version of Godot to build")
     }
     environment {
-        registry = "https://ghcr.io/Seppli11"
+        registry = "https://ghcr.io"
         registryCredential = "github-seppli11-package-token"
     }
 
@@ -13,7 +13,7 @@ pipeline {
             steps {
                 echo "Building Godot ${params.GodotVersion}"
                 script {
-                    godotImage = docker.build("godot:${params.GodotVersion}", "--build-arg GODOT_VERSION=${params.GodotVersion} .")
+                    godotImage = docker.build("Seppli11/godot:${params.GodotVersion}", "--build-arg GODOT_VERSION=${params.GodotVersion} .")
                 }
             }
         }
