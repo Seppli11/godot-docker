@@ -1,7 +1,11 @@
 pipeline {
     agent any
     parameters {
-        string(name: "GodotVersion", description: "The version of Godot to build")
+        editableChoice(
+            name: "GodotVersion", 
+            description: "The version of Godot to build"
+            choice: []
+        )
     }
     environment {
         registry = "https://ghcr.io"
