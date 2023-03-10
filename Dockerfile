@@ -29,6 +29,7 @@ WORKDIR /home/jenkins
 RUN wget "https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}/Godot_v${GODOT_VERSION}_mono_export_templates.tpz" \
     && mkdir -p ~/.local/share/godot/export_templates \
     && unzip -d ~/.local/share/godot/export_templates Godot_v*_mono_export_templates.tpz \
+    && mv "~/.local/share/godot/export_templates/templates" "~/.local/share/godot/export_templates/${GODOT_VERSION}.mono" \
     && rm -f *.zip *.tpz
 
 RUN dotnet tool install --global dotnet-reportgenerator-globaltool \
