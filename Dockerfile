@@ -13,22 +13,22 @@ RUN apt-get update \
     && apt-get update \
     && apt-get install -y unzip dotnet-sdk-7.0 fontconfig \
     && rm -rf /var/lib/apt/lists/* \
-RUN wget \
-"https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}/Godot_v${GODOT_VERSION}_mono_linux_x86_64.zip" \
-"https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}/Godot_v${GODOT_VERSION}_mono_export_templates.tpz" \
+RUN wget "https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}/Godot_v${GODOT_VERSION}_mono_linux_x86_64.zip" \
     && unzip Godot_v*_mono_linux_x86_64.zip \
     && mv Godot_v*_linux_x86_64 /opt/godot \
     && mv /opt/godot/Godot_* /opt/godot/godot \
     && ln -s /opt/godot/godot /usr/local/bin/godot \
-    && mkdir ~/.godot \
-    && unzip -d ~/.godot Godot_v*_mono_export_templates.tpz \
-    && rm -f *.zip *.tpz \
 
 ENV DOTNET_CLI_TELEMETRY_OPTOUT=1
 
 RUN useradd --system --create-home --home-dir /home/jenkins --shell /bin/bash --gid root --groups sudo --uid 1000 jenkins
 USER jenkins
 WORKDIR /home/jenkins
+
+RUN wget "https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}/Godot_v${GODOT_VERSION}_mono_export_templates.tpz" \
+    && mkdir -p ~/.local/share/godot/export_templates \
+    && unzip -d ~/.local/share/godot/export_templates Godot_v*_mono_export_templates.tpz \
+    && rm -f *.zip *.tpz \
 
 RUN dotnet tool install --global dotnet-reportgenerator-globaltool \
     && dotnet tool install --global dotnet-coverage \
