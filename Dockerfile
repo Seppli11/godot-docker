@@ -15,8 +15,8 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 SHELL ["/bin/bash", "-c"]
-RUN GODOT_LOCATION=$(if [[ $GODOT_VERSION == *"stable" ]]; then echo ${GODOT_VERSION%"-stable"}; else echo ${GODOT_VERSION/-/\/}; fi) \
-    && wget "https://downloads.tuxfamily.org/godotengine/${GODOT_LOCATION}/mono/Godot_v${GODOT_VERSION}_mono_linux_x86_64.zip" \
+RUN GODOT_LOCATION=$(if [[ $GODOT_VERSION == *"stable" ]]; then echo 'https://github.com/godotengine/godot/releases/download'; else echo "https://github.com/godotengine/godot-builds/releases/download"; fi) \
+    && wget "${GODOT_LOCATION}/${GODOT_VERSION}/Godot_v${GODOT_VERSION}_mono_linux_x86_64.zip" \
     && unzip Godot_v*_mono_linux_x86_64.zip \
     && mv Godot_v*_linux_x86_64 /opt/godot \
     && mv /opt/godot/Godot_* /opt/godot/godot \
@@ -28,8 +28,8 @@ RUN useradd --system --create-home --home-dir /home/jenkins --shell /bin/bash --
 USER jenkins
 WORKDIR /home/jenkins
 
-RUN GODOT_LOCATION=$(if [[ $GODOT_VERSION == *"stable" ]]; then echo ${GODOT_VERSION%"-stable"}; else echo ${GODOT_VERSION/-/\/}; fi) \
-    && wget "https://downloads.tuxfamily.org/godotengine/${GODOT_LOCATION}/mono/Godot_v${GODOT_VERSION}_mono_export_templates.tpz" \
+RUN GODOT_LOCATION=$(if [[ $GODOT_VERSION == *"stable" ]]; then echo 'https://github.com/godotengine/godot/releases/download'; else echo "https://github.com/godotengine/godot-builds/releases/download"; fi) \
+    && wget "${GODOT_LOCATION}/${GODOT_VERSION}/Godot_v${GODOT_VERSION}_mono_export_templates.tpz" \
     && mkdir -p ~/.local/share/godot/export_templates \
     && unzip -d ~/.local/share/godot/export_templates Godot_v*_mono_export_templates.tpz \
     && ls -la ~/.local/share/godot/export_templates \
